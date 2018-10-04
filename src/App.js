@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 // import axios from 'axios';// import MyMap from './components/MyMap'
 import MyMap from './components/MyMap'
-import FourSquare from './api/FourSquare'
+// import FourSquare from './api/FourSquare'
 
 class App extends Component {
-
+  /*
   componentDidMount() {
     FourSquare.search({
       near: "Disney World",
@@ -13,7 +13,7 @@ class App extends Component {
       limit: 10
     }).then(results => console.log(results));
   }
-  
+  */
   render () {
 
     return (
