@@ -15,7 +15,7 @@ class MyMap extends Component {
             infowindow: '',
             prevmarker: ''
         };
-        this.initMap = this.initMap.bind(this); // have this in initMap as well
+        // this.initMap = this.initMap.bind(this); // have this in initMap as well
         // this.openInfoWindow = this.openInfoWindow.bind(this);
         // this.closeInfoWindow = this.closeInfoWindow.bind(this);
     }
@@ -23,13 +23,9 @@ class MyMap extends Component {
   componentDidMount() {
     this.getVenues()
     // this.loadMap()
-  }
-
-  loadMap = () => { // script on index.html. Can I ref that?
-    loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyBj5AzHYC1kUPRnvaT6G6zsAONHSpKmoqQ&callback=initMap")
     window.initMap = this.initMap
   }
-
+ 
   getVenues = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/explore?"
     const parameters = {
@@ -48,7 +44,7 @@ class MyMap extends Component {
       .then(response => {
         this.setState({
           venues: response.data.response.groups[0].items
-        }, this.loadMap())
+        }, loadScript())
       })
       .catch(error => {
         console.log("Error: " + error)
@@ -103,15 +99,17 @@ class MyMap extends Component {
   }
 }
 
-// From Elharony WT video #2
+function loadScript() {
+    let index = window.document.getElementsByTagName("script")[0]
+    let script = window.document.createElement("script")
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBj5AzHYC1kUPRnvaT6G6zsAONHSpKmoqQ&callback=initMap'
+    script.async = true
+    script.defer = true
+    script.onerror = function() {
+        document.write("Error: Google Maps can't be loaded");
+    }
+    index.parentNode.insertBefore(script, index)
 
-function loadScript(source) {
-  var index = window.document.getElementsByTagName("script")[0]
-  var script = window.document.createElement("script")
-  script.src = source
-  script.async = true
-  script.defer = true
-  index.parentNode.insertBefore(script, index)
 }
     
 export default MyMap
