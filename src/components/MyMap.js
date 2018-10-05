@@ -37,11 +37,13 @@ class MyMap extends Component {
     
     // create an infowindow
     let infowindow = new google.maps.InfoWindow()
-
+    
+    
+    
     // display dynamic markers
     this.state.venues.map(myVenue => {
 
-    let contentString = `${myVenue.venue.name}` // Removed Place Name in WT 
+    let contentString = `${myVenue.venue.name}` 
 
     let marker = new google.maps.Marker({
       position: {lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng},
@@ -57,12 +59,15 @@ class MyMap extends Component {
       infowindow.setContent(contentString)
       
       // Open an InfoWindow
-      infowindow.open(map, marker)
+      infowindow.open(map, marker,) 
       marker.setAnimation(window.google.maps.Animation.BOUNCE);
-    })
-    
+        setTimeout(function(){ marker.setAnimation(null); }, 750);
+    });
+    this.setState({
+        venues: this.venues
+    });        
   });
-  
+    
 }
 
 getVenues = () => {
@@ -76,10 +81,8 @@ getVenues = () => {
       limit: 10,
       v: "20181005"
     }
-
-    // From Walthrough video series
     // Run: npm install axios
-    axios.get(endPoint + new URLSearchParams(parameters)) //URLSearchParams is actual function, don't change
+    axios.get(endPoint + new URLSearchParams(parameters))
       .then(response => {
         this.setState({
           venues: response.data.response.groups[0].items
@@ -88,7 +91,6 @@ getVenues = () => {
       .catch(error => {
         console.log("Error: " + error)
       })
-
   }
   
   render() { 
