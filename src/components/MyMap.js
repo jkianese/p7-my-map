@@ -57,16 +57,47 @@ class MyMap extends Component {
             // mapTypeControl: false // see what this does
         });
 
+        let InfoWindow = new window.google.maps.InfoWindow({});
+
+        window.google.maps.event.addListener(InfoWindow, 'closeclick', function () {
+            this.closeInfoWindow();
+        });
+
+
         this.setState({
             'map': map,
-            // 'infowindow': InfoWindow
+            'infowindow': InfoWindow
         })
+        /* Included in referenced code, don't know that I need any of this
+        window.google.maps.event.addDomListener(window, "resize", function () {
+            var center = map.getCenter();
+            window.google.maps.event.trigger(map, "resize");
+            this.state.map.setCenter(center);
+        });
+        */
+
+        window.google.maps.event.addListener(map, 'click', function () {
+            this.closeInfoWindow();
+        });
+
         this.state.favPlaces.forEach((location, ind) => {
             const marker = new google.maps.Marker({
                 position: {lat: location.location.lat, lng: location.location.lng},
+                animation: window.google.maps.Animation.DROP,
                 map: map,
             })
-        })
+
+            marker.addListener('click', function () {
+                this.openInfoWindow(marker);
+            });
+            // location.longname = longname;
+            location.marker = marker;
+            location.display = true;
+            this.state.favPlaces.push(location); // code ref did not have this.state
+        });
+        this.setState({
+            'favPlaces': this.favPlaces
+        });
     } 
     
         
