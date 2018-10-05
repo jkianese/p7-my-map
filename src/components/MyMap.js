@@ -61,8 +61,14 @@ class MyMap extends Component {
             'map': map,
             // 'infowindow': InfoWindow
         })
-        
-    }    
+        this.state.favPlaces.forEach((location, ind) => {
+            const marker = new google.maps.Marker({
+                position: {lat: location.location.lat, lng: location.location.lng},
+                map: map,
+            })
+        })
+    } 
+    
         
 
     render () {
@@ -88,6 +94,3 @@ function scriptSrc() {
 }
 
 export default MyMap
-
-
-
