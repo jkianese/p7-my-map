@@ -35,11 +35,13 @@ class MyMap extends Component {
         scriptSrc();
         // this.getVenues()
         // this.loadMap()
+        /*
         FourSquare.search({
             near: "Disney World",
             query: "food",
             limit: 10
           }).then(results => console.log(results));
+        */
     }
     /*
     loadMap = () => { 
@@ -87,7 +89,7 @@ class MyMap extends Component {
                 map: map,
             })
 
-            marker.addListener('click', function () {
+            marker.addListener('click', () => {
                 this.openInfoWindow(marker);
             });
             // location.longname = longname;
@@ -108,15 +110,17 @@ class MyMap extends Component {
         this.setState({
             'prevmarker': marker
         });
-        this.state.infowindow.setContent('Loading Data...');
+        this.state.infowindow.setContent(FourSquare);
         this.state.map.setCenter(marker.getPosition());
         this.state.map.panBy(0, -200);
-        // this.getMarkerInfo(marker);
+        this.getMarkerInfo(marker);
     }
       
     getMarkerInfo(marker) {
         // Code Ref - Foursquare Info is here
         // Can I Link mine here to my FourSquare.js component???
+        this.state.infowindow.setContent(FourSquare.getVenueDetails); // I highly doubt this will work, this is my experiment
+   
     }
 
     closeInfoWindow() {
