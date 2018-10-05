@@ -100,7 +100,34 @@ class MyMap extends Component {
         });
     } 
     
-        
+    // Code broke after I add this on marker click -- Line 91 call to openInfoWindow    
+    openInfoWindow(marker) {
+        this.closeInfoWindow();
+        this.state.infowindow.open(this.state.map, marker);
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        this.setState({
+            'prevmarker': marker
+        });
+        this.state.infowindow.setContent('Loading Data...');
+        this.state.map.setCenter(marker.getPosition());
+        this.state.map.panBy(0, -200);
+        // this.getMarkerInfo(marker);
+    }
+      
+    getMarkerInfo(marker) {
+        // Code Ref - Foursquare Info is here
+        // Can I Link mine here to my FourSquare.js component???
+    }
+
+    closeInfoWindow() {
+        if (this.state.prevmarker) {
+            this.state.prevmarker.setAnimation(null);
+        }
+        this.setState({
+            'prevmarker': ''
+        });
+        this.state.infowindow.close();
+    }
 
     render () {
         return (
