@@ -23,7 +23,15 @@ class MyMap extends Component {
   componentDidMount() {
     this.getVenues()
     window.initMap = this.initMap
-  }
+
+    /*
+    FourSquare.search({
+            near: "Pittsburgh, PA",
+            query: "arts",
+            limit: 10
+          }).then(results => console.log(results));
+    */      
+    }
  
   initMap = () => {
 
@@ -43,25 +51,22 @@ class MyMap extends Component {
     // display dynamic markers
     this.state.venues.map(myVenue => {
 
-    let contentString = `${myVenue.venue.name}` 
+    let contentString = `Venue Details: ${myVenue.venue.name}` 
 
     let marker = new google.maps.Marker({
       position: {lat: myVenue.venue.location.lat, lng: myVenue.venue.location.lng},
       map: map,
       title: myVenue.venue.name,
       animation: window.google.maps.Animation.DROP,
-    })
+      
+    });
 
     // click on a marker
     marker.addListener('click', function() {
-      
-      // Change the Content
-      infowindow.setContent(contentString)
-      
-      // Open an InfoWindow
-      infowindow.open(map, marker,) 
-      marker.setAnimation(window.google.maps.Animation.BOUNCE);
-        setTimeout(function(){ marker.setAnimation(null); }, 750);
+        infowindow.setContent(contentString)
+        infowindow.open(map, marker,) 
+          marker.setAnimation(window.google.maps.Animation.BOUNCE);
+            setTimeout(function(){ marker.setAnimation(null); }, 750);
     });
     this.setState({
         venues: this.venues
@@ -91,6 +96,7 @@ getVenues = () => {
       .catch(error => {
         console.log("Error: " + error)
       })
+      
   }
   
   render() { 
