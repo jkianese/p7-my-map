@@ -9,8 +9,8 @@ class MyMap extends Component {
         super(props);
         this.state = {
                 venues: [],
-            // query: '', // Do I need query?
-            // venues: [], // Keep for now, may not need this
+            // query: '',
+            // venues: [], 
             map: '',
             infowindow: '',
             prevmarker: ''
