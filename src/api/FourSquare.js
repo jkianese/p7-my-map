@@ -4,8 +4,8 @@ class fsHelper {
     }
     static auth() {
         const keys = {
-            client_id: "F1BIU3KU3RZFBQKCLKJ2MX1AT2ZRZFYRUXTJUMFGA1YUS5ZF",
-            client_secret: "N1HLP0MSWYJJATAS3CBQTTSZ2WLME5RB2TAUWHGE2UXZ5A1E",
+            client_id: "",
+            client_secret: "",
             query: "attractions",
             ll: "28.385299, -81.563874",
             limit: 10,
